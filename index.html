@@ -39,20 +39,42 @@
             flex-direction: column;
             align-items: center;
             padding-top: 48px;
-            max-width: 450px;
+            min-width: 600px; /* Increased width */
             margin: 0 auto;
         }
 
         .logo {
-            margin-bottom: 24px;
+            margin-bottom: 16px; /* Add spacing below the logo */
+            display: block; /* Ensure it behaves as a block element */
         }
 
         .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             width: 100%;
-            border: 1px solid #dadce0;
-            border-radius: 8px;
+            border-radius: 25px;
             padding: 48px 40px 36px;
             background: #ffffff; /* Set background to plain white */
+            position: relative; /* Allows adjustment with top and left */
+            top: 100; /* Adjust this value to move the box vertically */
+            left: 0; /* Adjust this value to move the box horizontally */
+        }
+
+        .left-content {
+            flex: 1;
+            margin-right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align content to the left */
+        }
+
+        .right-content {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align items to the left */
+            margin-top: auto; /* Push content to the bottom */
         }
 
         h1 {
@@ -69,7 +91,8 @@
         }
 
         .form-group {
-            margin-bottom: 32px;
+            width: 100%;
+            margin-bottom: 8px; /* Add spacing below the input */
         }
 
         input {
@@ -88,6 +111,7 @@
         }
 
         .forgot-email {
+            margin-bottom: 16px; /* Add spacing below the "Forgot email?" link */
             color: #1a73e8;
             text-decoration: none;
             font-weight: 500;
@@ -100,9 +124,11 @@
 
         .button-group {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 48px;
+            justify-content: flex-end; /* Align buttons to the right */
+            align-items: center; /* Center items vertically */
+            gap: 16px; /* Add spacing between the link and button */
+            margin-top: auto; /* Push buttons to the bottom */
+            align-self: flex-end; /* Align the group to the bottom-right */
         }
 
         .create-account {
@@ -163,21 +189,22 @@
     </nav>
 
     <main>
-        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="logo" height="75">
-        
         <div class="container">
-            <h1>Sign in</h1>
-            <p class="subtitle">Use your Google Account</p>
-            
-            <div class="form-group">
-                <input type="email" placeholder="Email or phone">
+            <div class="left-content">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffreelogopng.com%2Fimages%2Fall_img%2F1657952440google-logo-png-transparent.png&f=1&nofb=1&ipt=b7259c6000b6b3a495e309cab647f337fea78c881fe2c53d600689dd94f06846&ipo=images" 
+                     alt="Google" class="logo" height="35">
+                <h1>Sign in</h1>
+                <p class="subtitle">Use your Google Account</p>
             </div>
-
-            <a href="#" class="forgot-email">Forgot email?</a>
-
-            <div class="button-group">
-                <a href="#" class="create-account">Create account</a>
-                <button type="button">Next</button>
+            <div class="right-content">
+                <div class="form-group">
+                    <input type="email" placeholder="Email or phone">
+                </div>
+                <a href="#" class="forgot-email">Forgot email?</a>
+                <div class="button-group">
+                    <a href="#" class="create-account">Create account</a>
+                    <button type="button" style="border-radius: 20px;">Next</button>
+                </div>
             </div>
         </div>
     </main>
