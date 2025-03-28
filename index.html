@@ -34,39 +34,43 @@
         }
 
         main {
+            position: relative; /* Allows child elements to use absolute positioning */
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding-top: 48px;
-            min-width: 600px; /* Increased width */
+            min-width: 600px;
             margin: 0 auto;
         }
 
-        .logo {
-            margin-bottom: 16px; /* Add spacing below the logo */
-            display: block; /* Ensure it behaves as a block element */
-        }
-
         .container {
+            position: absolute; /* Allows movement with top and left */
+            top: 200px; /* Adjust this value to move the box vertically */
+            left: -200px; /* Adjust this value to move the box horizontally */
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            width: 100%;
+            width: 1000px; /* Increased width significantly */
             border-radius: 25px;
-            padding: 48px 40px 36px;
+            padding: 60px 50px; /* Increased padding for bigger box */
             background: #ffffff; /* Set background to plain white */
-            position: relative; /* Allows adjustment with top and left */
-            top: 100; /* Adjust this value to move the box vertically */
-            left: 0; /* Adjust this value to move the box horizontally */
         }
 
         .left-content {
             flex: 1;
-            margin-right: 20px;
+            margin-right: 40px; /* Increased margin between left and right content */
             display: flex;
             flex-direction: column;
             align-items: flex-start; /* Align content to the left */
+        }
+
+        .logo {
+            margin-bottom: 16px; /* Reduced spacing between logo and text */
+            height: 40px;
+            position: relative;
+            top: -10px;
+            left: -10px;
         }
 
         .right-content {
@@ -78,9 +82,9 @@
         }
 
         h1 {
-            font-size: 24px;
-            font-weight: 400;
-            margin-bottom: 12px;
+            font-size: 32px; /* Increased font size */
+            font-weight: 400; /* Reduced boldness */
+            margin-bottom: 8px; /* Reduced spacing between heading and subtitle */
         }
 
         .subtitle {
@@ -120,6 +124,24 @@
 
         .forgot-email:hover {
             background: #f6fafe;
+        }
+
+        .info-text {
+            color: #5f6368;
+            font-size: 14px;
+            margin: 32px 0;
+            max-width: 90%;
+            line-height: 1.5;
+        }
+
+        .learn-more {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .learn-more:hover {
+            text-decoration: underline;
         }
 
         .button-group {
@@ -192,7 +214,7 @@
         <div class="container">
             <div class="left-content">
                 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffreelogopng.com%2Fimages%2Fall_img%2F1657952440google-logo-png-transparent.png&f=1&nofb=1&ipt=b7259c6000b6b3a495e309cab647f337fea78c881fe2c53d600689dd94f06846&ipo=images" 
-                     alt="Google" class="logo" height="35">
+                     alt="Google" class="logo">
                 <h1>Sign in</h1>
                 <p class="subtitle">Use your Google Account</p>
             </div>
@@ -201,6 +223,7 @@
                     <input type="email" placeholder="Email or phone">
                 </div>
                 <a href="#" class="forgot-email">Forgot email?</a>
+                <p class="info-text">Not your computer? Use Guest mode to sign in privately. <a href="#" class="learn-more">Learn more about using Guest mode</a></p>
                 <div class="button-group">
                     <a href="#" class="create-account">Create account</a>
                     <button type="button" style="border-radius: 20px;">Next</button>
