@@ -200,6 +200,10 @@
             text-decoration: none;
             margin-left: 24px;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -251,5 +255,18 @@
             <a href="#">Terms</a>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nextButton = document.getElementById('next-button');
+            const passwordGroup = document.getElementById('password-group');
+
+            nextButton.addEventListener('click', () => {
+                // Show the password field
+                passwordGroup.classList.remove('hidden');
+                nextButton.classList.add('hidden'); // Hide the "Next" button
+            });
+        });
+    </script>
 </body>
 </html>
