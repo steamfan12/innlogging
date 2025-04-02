@@ -1,66 +1,3 @@
-<?php
-// Database connection details
-$host = 'localhost'; // Database host
-$dbname = 'google_scam'; // Database name
-$db_user = 'root'; // Database username
-$db_pass = 'Passord'; // Database password
-
-// Create a connection
-$conn = new mysqli($host, $db_user, $db_pass, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$login_message = "";
-
-// Check if account was created successfully
-if (isset($_GET['account_created']) && $_GET['account_created'] == 1) {
-    $login_message = "Account created successfully! Please log in.";
-}
-
-// Check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $brukernavn = $_POST['brukernavn'] ?? '';
-    $passord = $_POST['passord'] ?? '';
-
-    // Validate username and password length
-    if (strlen($brukernavn) < 3 || strlen($passord) < 6) {
-        $login_message = "Username must be at least 3 characters and password at least 6 characters.";
-    } else {
-        // Prevent SQL injection
-        $brukernavn = $conn->real_escape_string($brukernavn);
-
-        // Query to fetch the hashed password for the given username
-        $sql = "SELECT passord FROM user WHERE brukernavn = '$brukernavn'";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $hashed_passord = $row['passord'];
-
-            // Verify the password
-            if (password_verify($passord, $hashed_passord)) {
-                // Login successful
-                session_start();
-                $_SESSION['brukernavn'] = $brukernavn; // Store username in session
-                header("Location: welcome.php"); // Redirect to welcome page
-                exit();
-            } else {
-                // Invalid password
-                $login_message = "Invalid username or password.";
-            }
-        } else {
-            // Username not found
-            $login_message = "Invalid username or password.";
-        }
-    }
-}
-
-// Close the connection
-$conn->close();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,7 +45,7 @@ $conn->close();
         }
 
         .container {
-            position: relative; /* Make the container the reference point for absolute positioning */
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -161,9 +98,9 @@ $conn->close();
         }
 
         input {
-            width: 100%; /* Ensure the input stretches to fill the container */
-            max-width: 600px; /* Set a maximum width for larger screens */
-            min-width: 500px; /* Set a minimum width to ensure the input is long enough */
+            width: 100%;
+            max-width: 600px;
+            min-width: 500px;
             height: 54px;
             border: 1px solid #dadce0;
             border-radius: 4px;
@@ -209,12 +146,12 @@ $conn->close();
 
         .button-group {
             display: flex;
-            justify-content: flex-end; /* Align items to the right */
+            justify-content: flex-end;
             align-items: center;
-            position: absolute; /* Position the button group relative to the container */
-            bottom: 20px; /* Distance from the bottom of the white box */
-            right: 120px; /* Adjust this value to move the buttons slightly more to the left */
-            gap: 16px; /* Add spacing between the link and button */
+            position: absolute;
+            bottom: 20px;
+            right: 120px;
+            gap: 16px;
         }
 
         .create-account {
@@ -263,13 +200,17 @@ $conn->close();
             text-decoration: none;
             margin-left: 24px;
         }
-
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
+    <nav>
+        <div class="nav-links">
+            <a href="#">Help</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </nav>
+
     <main>
         <div class="container">
             <div class="left-content">
@@ -279,10 +220,7 @@ $conn->close();
                 <p class="subtitle">Use your Google Account</p>
             </div>
             <div class="right-content">
-                <?php if (!empty($login_message)): ?>
-                    <p style="color: red;"><?php echo $login_message; ?></p>
-                <?php endif; ?>
-                <form id="login-form" action="" method="POST">
+                <form id="login-form">
                     <div class="form-group">
                         <input type="text" id="brukernavn" name="brukernavn" placeholder="Email or phone" required>
                     </div>
@@ -290,7 +228,7 @@ $conn->close();
                         <input type="password" id="passord" name="passord" placeholder="Password" required>
                     </div>
                     <div class="button-group">
-                        <a href="create_account.php" class="create-account">Create account</a>
+                        <a href="#" class="create-account">Create account</a>
                         <button type="button" id="next-button" style="border-radius: 20px;">Next</button>
                     </div>
                 </form>
@@ -313,20 +251,5 @@ $conn->close();
             <a href="#">Terms</a>
         </div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const nextButton = document.getElementById('next-button');
-            const loginButton = document.getElementById('login-button');
-            const passwordGroup = document.getElementById('password-group');
-
-            nextButton.addEventListener('click', () => {
-                // Show the password field and login button
-                passwordGroup.classList.remove('hidden');
-                loginButton.classList.remove('hidden');
-                nextButton.classList.add('hidden');
-            });
-        });
-    </script>
 </body>
 </html>
