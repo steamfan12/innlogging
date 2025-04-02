@@ -270,14 +270,6 @@ $conn->close();
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-links">
-            <a href="#">Help</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-        </div>
-    </nav>
-
     <main>
         <div class="container">
             <div class="left-content">
